@@ -9,7 +9,8 @@ import {
   Database, 
   Ship, 
   Layers,
-  ChevronRight
+  ChevronRight,
+  X
 } from 'lucide-react';
 
 export type ActiveTab = 'dashboard' | 'master' | 'transactions' | 'tracking' | 'reports' | 'notifications' | 'database';
@@ -23,12 +24,16 @@ interface SidebarProps {
     pendingGate: number;
     unreadNotifs: number;
   };
+  isOpen?: boolean;
+  onClose?: () => void;
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({
   activeTab,
   onTabChange,
-  stats
+  stats,
+  isOpen = false,
+  onClose
 }) => {
   const navItems = [
     {
@@ -84,11 +89,38 @@ export const Sidebar: React.FC<SidebarProps> = ({
   ];
 
   return (
-    <aside className="w-full md:w-64 shrink-0 bg-slate-900 text-slate-300 p-3 flex flex-col justify-between border-r border-slate-800">
-      <div className="space-y-1">
-        <div className="px-3 py-2 text-[11px] font-bold tracking-wider text-slate-400 uppercase">
-          Navigasi Modul TOS
-        </div>
+    <>
+      {/* Mobile Backdrop */}
+      {isOpen && (
+        <div
+          id="sidebar-mobile-backdrop"
+          onClick={onClose}
+          className="fixed inset-0 bg-slate-950/60 z-40 md:hidden backdrop-blur-xs transition-opacity"
+        />
+      )}
+
+      <aside
+        id="app-sidebar"
+        className={`fixed md:static inset-y-0 left-0 z-50 md:z-auto w-72 md:w-64 shrink-0 bg-slate-900 text-slate-300 p-3 flex flex-col justify-between border-r border-slate-800 transition-transform duration-200 ease-in-out ${
+          isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
+        }`}
+      >
+        <div className="space-y-1">
+          <div className="flex items-center justify-between px-3 py-2">
+            <span className="text-[11px] font-bold tracking-wider text-slate-400 uppercase">
+              Navigasi Modul TOS
+            </span>
+            {onClose && (
+              <button
+                id="btn-close-sidebar-mobile"
+                onClick={onClose}
+                className="md:hidden p-1 text-slate-400 hover:text-white rounded-md transition-colors"
+                title="Tutup Menu"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            )}
+          </div>
         {navItems.map((item) => {
           const Icon = item.icon;
           const isActive = activeTab === item.id;
@@ -171,5 +203,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </div>
       </div>
     </aside>
+    </>
   );
 };

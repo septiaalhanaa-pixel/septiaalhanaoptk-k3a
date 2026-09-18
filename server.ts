@@ -12,7 +12,7 @@ import {
   INITIAL_SHIFTING,
   INITIAL_NOTIFICATIONS,
   INITIAL_TRUCKS
-} from './src/data/initialData.ts';
+} from './src/data/initialData';
 
 const PORT = 3000;
 const DATA_DIR = path.join(process.cwd(), 'data');
@@ -187,7 +187,7 @@ async function startServer() {
   app.post('/api/database/config', (req: Request, res: Response) => {
     db.dbConfig = { ...db.dbConfig, ...req.body, lastTestedAt: new Date().toISOString() };
     saveDatabase(db);
-    res.json({ success: true, dbConfig: db.dbConfig });
+    res.json(db.dbConfig);
   });
 
   app.post('/api/database/test-connection', async (req: Request, res: Response) => {

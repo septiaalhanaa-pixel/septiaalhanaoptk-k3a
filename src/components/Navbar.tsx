@@ -10,7 +10,8 @@ import {
   ShieldCheck, 
   RefreshCw, 
   Sparkles,
-  Wifi
+  Wifi,
+  Menu
 } from 'lucide-react';
 import { UserSession, DatabaseConfig } from '../types';
 
@@ -23,6 +24,7 @@ interface NavbarProps {
   onOpenNotifications: () => void;
   unreadNotifsCount: number;
   onResetData: () => void;
+  onToggleSidebar?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -33,7 +35,8 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenDatabaseModal,
   onOpenNotifications,
   unreadNotifsCount,
-  onResetData
+  onResetData,
+  onToggleSidebar
 }) => {
   const [currentTime, setCurrentTime] = React.useState('');
 
@@ -74,6 +77,17 @@ export const Navbar: React.FC<NavbarProps> = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
         {/* Logo & Terminal Brand */}
         <div className="flex items-center gap-3">
+          {onToggleSidebar && (
+            <button
+              id="btn-mobile-sidebar-toggle"
+              onClick={onToggleSidebar}
+              className="md:hidden p-2 -ml-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors cursor-pointer"
+              title="Buka Menu Navigasi"
+              aria-label="Toggle Menu"
+            >
+              <Menu className="w-5 h-5" />
+            </button>
+          )}
           <div className="h-10 w-10 rounded-lg bg-blue-700 flex items-center justify-center text-white shadow-sm">
             <Anchor className="w-5 h-5" />
           </div>

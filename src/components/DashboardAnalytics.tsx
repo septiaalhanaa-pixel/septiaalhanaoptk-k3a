@@ -72,11 +72,11 @@ export const DashboardAnalytics: React.FC<DashboardAnalyticsProps> = ({
 
   // Yard Block Data
   const blockData = yardBlocks.map(b => ({
-    name: b.name.split(' ')[0] + ' ' + b.name.split(' ')[1],
+    name: b.name.split(' ').slice(0, 2).join(' ') || b.name,
     terisi: b.currentTeuOccupied,
     sisa: Math.max(0, b.totalCapacityTeu - b.currentTeuOccupied),
     kapasitas: b.totalCapacityTeu,
-    utilisasi: Math.round((b.currentTeuOccupied / b.totalCapacityTeu) * 100)
+    utilisasi: b.totalCapacityTeu > 0 ? Math.round((b.currentTeuOccupied / b.totalCapacityTeu) * 100) : 0
   }));
 
   // Container Type breakdown

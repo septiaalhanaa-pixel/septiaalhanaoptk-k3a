@@ -495,6 +495,7 @@ export default function App() {
         user={user}
         dbConfig={dbConfig}
         unreadNotifsCount={notifications.length}
+        onToggleSidebar={() => setIsSidebarOpen(prev => !prev)}
         onOpenLogin={() => setIsLoginModalOpen(true)}
         onLogout={handleLogout}
         onOpenDatabaseModal={() => setIsDbModalOpen(true)}
@@ -530,10 +531,12 @@ export default function App() {
       />
 
       {/* Main Layout Body */}
-      <div className="flex flex-1 overflow-hidden">
+      <div className="flex flex-1 overflow-hidden relative">
         {/* Sidebar */}
         <Sidebar
           activeTab={activeTab}
+          isOpen={isSidebarOpen}
+          onClose={() => setIsSidebarOpen(false)}
           onTabChange={(tab: ActiveTab) => {
             if (tab === 'notifications') {
               setIsNotificationsModalOpen(true);
