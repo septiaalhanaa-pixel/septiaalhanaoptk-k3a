@@ -1,0 +1,6 @@
+{
+  "name": "Sistem Operasional Terminal Peti Kemas (TOS)",
+  "description": "Aplikasi sistem operasi terminal peti kemas perusahaan pelayaran terintegrasi database real-time, manajemen master data, transaksi, analitik armada maritim, dan pelacakan pengiriman.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
